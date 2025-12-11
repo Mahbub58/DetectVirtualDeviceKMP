@@ -9,6 +9,6 @@ fun evaluateVirtualEnvironment(): DetectionReport {
     return DetectionScoring.aggregate(VirtualDetector.collectSignals())
 }
 
-fun evaluateVirtualEnvironment(context: Any?): DetectionReport {
+fun evaluateVirtualEnvironmentContext(context: Any?): DetectionReport {
     return DetectionScoring.aggregate(VirtualDetector.collectSignalsWithContext(context))
 }

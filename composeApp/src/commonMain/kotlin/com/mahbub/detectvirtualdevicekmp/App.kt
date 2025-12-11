@@ -18,18 +18,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import detectvirtualdevicekmp.composeapp.generated.resources.Res
-import detectvirtualdevicekmp.composeapp.generated.resources.compose_multiplatform
 import com.mahbub.detectvirtualdevicekmp.detect.evaluateVirtualEnvironment
+import com.mahbub.detectvirtualdevicekmp.detect.evaluateRootOrJailbreak
+import com.mahbub.detectvirtualdevicekmp.detect.evaluateVirtualEnvironmentContext
+import com.mahbub.detectvirtualdevicekmp.detect.getPlatformContext
+
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
+        val ctx = remember { getPlatformContext() }
+        val reportContextCheck = remember { evaluateVirtualEnvironmentContext(ctx) }
+        val rootReportContextCheck = remember { evaluateRootOrJailbreak(ctx) }
         val report = remember { evaluateVirtualEnvironment() }
+        val rootReport = remember { evaluateRootOrJailbreak() }
         Scaffold { it ->
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -39,6 +43,10 @@ fun App() {
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text("Virtual: ${report.isEmulatorOrSimulator} (confidence=${report.confidence})")
+                Text("Root/Jailbreak: ${rootReport.isEmulatorOrSimulator} (confidence=${rootReport.confidence})")
+
+                Text("Virtual(Context): ${reportContextCheck.isEmulatorOrSimulator} (confidence=${reportContextCheck.confidence})")
+                Text("Root/Jailbreak(Context): ${rootReportContextCheck.isEmulatorOrSimulator} (confidence=${rootReportContextCheck.confidence})")
             }
         }
     }
