@@ -10,7 +10,7 @@ import platform.UIKit.UIApplication
 
 actual object VirtualDetector {
     @OptIn(ExperimentalForeignApi::class)
-    actual fun collectSignals(): List<DetectionSignal> {
+    actual fun collectSignals(context: Any?): List<DetectionSignal> {
         val signals = mutableListOf<DetectionSignal>()
 
         val env = NSProcessInfo.processInfo.environment
@@ -75,7 +75,7 @@ actual object VirtualDetector {
     }
 
     actual fun collectSignalsWithContext(context: Any?): List<DetectionSignal> {
-        return collectSignals()
+        return collectSignals(context)
     }
 
     

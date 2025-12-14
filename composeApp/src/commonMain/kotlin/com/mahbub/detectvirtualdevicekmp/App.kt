@@ -31,7 +31,7 @@ fun App() {
         val ctx = remember { getPlatformContext() }
         val reportContextCheck = remember { evaluateVirtualEnvironmentContext(ctx) }
         val rootReportContextCheck = remember { evaluateRootOrJailbreak(ctx) }
-        val report = remember { evaluateVirtualEnvironment() }
+        val report = remember { evaluateVirtualEnvironment(ctx) }
         val rootReport = remember { evaluateRootOrJailbreak() }
         Scaffold { it ->
             Column(
@@ -43,10 +43,9 @@ fun App() {
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text("Virtual: ${report.isEmulatorOrSimulator} (confidence=${report.confidence})")
-                Text("Root/Jailbreak: ${rootReport.isEmulatorOrSimulator} (confidence=${rootReport.confidence})")
-
-                Text("Virtual(Context): ${reportContextCheck.isEmulatorOrSimulator} (confidence=${reportContextCheck.confidence})")
-                Text("Root/Jailbreak(Context): ${rootReportContextCheck.isEmulatorOrSimulator} (confidence=${rootReportContextCheck.confidence})")
+//                Text("Root/Jailbreak: ${rootReport.isEmulatorOrSimulator} (confidence=${rootReport.confidence})")
+//                Text("Virtual(Context): ${reportContextCheck.isEmulatorOrSimulator} (confidence=${reportContextCheck.confidence})")
+//                Text("Root/Jailbreak(Context): ${rootReportContextCheck.isEmulatorOrSimulator} (confidence=${rootReportContextCheck.confidence})")
             }
         }
     }
